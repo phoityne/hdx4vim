@@ -1,0 +1,37 @@
+@startuml 101_deploy
+skinparam defaultFontName MS Gothic
+'skinparam minClassWidth 100
+'skinparam minClassHeight 400
+skinparam monochrome true
+'skinparam monochrome reverse
+'skinparam linetype polyline
+skinparam linetype ortho
+'skinparam linetype splines
+skinparam arrowThickness 2
+left to right direction
+
+title <size:18>Haskell Debugging System Deployment Diagram</size>
+
+node "vim" {
+  component "vimspector" <<plugin>>
+}
+
+node "VSCode" {
+  component "hdx4vsc" <<extension>>
+}
+
+node "Haskell Debugger" {
+  component "haskell-dap" <<library>>
+  component "haskell-debug-adapter" <<process>>
+  rectangle ghci #line.dashed {
+    component "ghci-dap" <<process>>
+  }
+}
+
+[vimspector] -- [haskell-debug-adapter] : <<stdio>>
+[hdx4vsc] -- [haskell-debug-adapter] : <<stdio>>
+[haskell-debug-adapter] --> [ghci-dap] : <<stdio>>
+[haskell-debug-adapter] -l-> [haskell-dap] : <<use>>
+[ghci-dap] -l-> [haskell-dap] : <<use>>
+
+@enduml
