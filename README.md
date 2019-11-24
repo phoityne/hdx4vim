@@ -111,7 +111,7 @@ $ diff stack_trace.py.dist stack_trace.py
 $
 ```
 
-# 7. Run vim
+## 7. Run vim
 ```
 $ vi test/UtilSpec.hs
 
