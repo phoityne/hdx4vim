@@ -89,8 +89,8 @@ $ cat .vimspector.json
         "ghciInitialPrompt": "Prelude>",
         "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
         "ghciEnv": {},
-        "logFile": "${workspaceRoot}/.vscode/phoityne.log",
-        "logLevel": "DEBUG",
+        "logFile": "${workspaceRoot}/hdx4vim.log",
+        "logLevel": "WARNING",
         "forceInspect": false
       }
     }
