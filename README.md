@@ -1,5 +1,5 @@
 
-# Haskell Debugger Extension for vim
+# Haskell Debugger Extension for Vim
 This is an experimental.
 
 ## System Design
