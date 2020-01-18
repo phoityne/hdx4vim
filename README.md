@@ -57,6 +57,8 @@ $
 ```
 
 ## 5. Prepare .vimspector.json
+[see sample files.](https://github.com/phoityne/hdx4vim/tree/master/config)
+
 ```
 $ cd sample
 $ cat .vimspector.json
