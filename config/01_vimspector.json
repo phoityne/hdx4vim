@@ -1,0 +1,35 @@
+{
+  "adapters": {
+    "hda": {
+      "name": "haskell-debug-adapter",
+      "command": [
+        "haskell-debug-adapter",
+        "--hackage-version=0.0.31.0"
+      ]
+    }
+  },
+  "configurations": {
+    "haskell-debug-adapter: Launch": {
+      "adapter": "hda",
+      "configuration": {
+        "type": "ghc",
+        "request": "launch",
+        "name": "haskell-debug-adapter",
+        "internalConsoleOptions": "openOnSessionStart",
+        "workspace": "${workspaceRoot}",
+        "startup": "${workspaceRoot}/app/Main.hs",
+        "startupFunc": "",
+        "startupArgs": "",
+        "stopOnEntry": false,
+        "mainArgs": "",
+        "ghciPrompt": "H>>= ",
+        "ghciInitialPrompt": "Prelude>",
+        "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET",
+        "ghciEnv": {},
+        "logFile": "${workspaceRoot}/hdx4vim.log",
+        "logLevel": "WARNING",
+        "forceInspect": false
+      }
+    }
+  }
+}

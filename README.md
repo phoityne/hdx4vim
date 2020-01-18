@@ -52,8 +52,7 @@ $
 
 ```
 $ stack install haskell-dap ghci-dap haskell-debug-adapter
-  !! current version not work.
-     get new one from github.
+
 $
 ```
 
