@@ -12,7 +12,7 @@ left to right direction
 
 title <size:18>Haskell Debugging System Deployment Diagram</size>
 
-node "vim" {
+node "vim / neovim" {
   component "vimspector" <<plugin>>
 }
 
