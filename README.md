@@ -9,60 +9,50 @@ This is an experimental.
 ## Movie
 ![01_sample_debug.gif](https://raw.githubusercontent.com/phoityne/hdx4vim/master/docs/01_sample_debug.gif)
 
+## Environment
+- Windows10
+- vim-8.2
+- python36
+- [vimspector](https://github.com/puremourning/vimspector)
 
 ## Setup
 
-### 1. Install vim-8.1
-```
-# yum install python-devel python3 python3-devel
-#
-# git clone https://github.com/vim/vim.git
-#
-# ./configure   --disable-selinux   --enable-cscope \
-  --enable-fontset   --enable-gpm   --enable-multibyte  \
-  --enable-rubyinterp   --enable-xim \
-  --enable-python3interp --enable-pythoninterp
-#
-# make
-# make install
-#
-```
+### 1. Install vim-8.2
 
-### 2. Install vimspector
-@see : https://github.com/puremourning/vimspector
-```
-$ cd
-$ mkdir -p .vim/pack
-$ cd .vim/pack
-$ curl -L https://github.com/puremourning/vimspector/releases/download/769/linux-8d025c475d80f9026f38e05c5d4b8a3822483a52.tar.gz | tar zxvf -
-$
-```
+- Download  
+  https://ftp.nluug.nl/pub/vim/pc/  
+  - gvim82.exe 
+- Install  
+  prefix: c:\prefix\vim82
 
-### 3. Create a stack project
-```
-$ stack new sample rio
-$
-$ cd sample
-$ stack test
-$
-```
 
-### 4. Install haskell-debugger
+### 2. Install python36.dll
 
- Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
+- Download  
+  https://www.python.org/downloads/release/python-368/  
+  - Windows x86 embeddable zip file 
+- Install  
+  prefix: c:\prefix\python-3.6.8-embed-win32
 
-```
-$ stack install haskell-dap ghci-dap haskell-debug-adapter
 
-$
-```
+### 3. Install vimspector
+- Download  
+  https://github.com/puremourning/vimspector/releases/  
+  - Source code (zip)
+- Install  
+  prefix: C:\prefix\vim82\pack\package\opt\vimspector
+
+
+### 4. Setup haskell environment
+@see https://github.com/phoityne/hdx4vsc
+
 
 ### 5. Prepare .vimspector.json
 [see sample files.](https://github.com/phoityne/hdx4vim/tree/master/config)
 
 ```
-$ cd sample
-$ cat .vimspector.json
+> cd haskell/project
+> vi .vimspector.json
 {
   "adapters": {
     "hda": {
@@ -98,26 +88,30 @@ $ cat .vimspector.json
     }
   }
 }
-$
+
+>
 ```
 
-### 6. Modify a bit
+
+### 6. Prepare vimrc
+
 ```
-$ pwd
-/home/phoityne/.vim/pack/vimspector/opt/vimspector/python3/vimspector
-$ diff stack_trace.py.dist stack_trace.py
-177c177
-<     if source.get( 'sourceReference', 0 ) > 0:
----
->     if (source.get( 'sourceReference', 0 ) is not None) and (source.get( 'sourceReference', 0 ) > 0):
-$
+> cd c:/haskell/project/path
+> vi vimrc
+set encoding=utf-8
+set pythonthreedll=C:\prefix\python-3.6.8-embed-win32\python36.dll
+packadd vimspector
+
+>
 ```
 
 ### 7. Run vim
 ```
-$ vi test/UtilSpec.hs
+> cd c:/haskell/project/path
+> set VIM=c:/haskell/project/path
+>
+> gvim test/UtilSpec.hs
 
-:packadd vimspector
 :call vimspector#ToggleBreakpoint()
 :call vimspector#Launch()
 
@@ -126,22 +120,41 @@ $ vi test/UtilSpec.hs
 
 # neovim
 ## Movie
-![03_neovim.gif](https://raw.githubusercontent.com/phoityne/hdx4vim/master/docs/03_neovim.gif)
+![04_nvim_win_vimspector.gif](https://raw.githubusercontent.com/phoityne/hdx4vim/master/docs/04_nvim_win_vimspector.gif)
 
+## Environment
+- Windows10
+- neovim-5.0-dev
+- python3
+- [vimspector](https://github.com/puremourning/vimspector)
 
 ## Setup
 
-### 1. Install neovim
+### 1. Setup neovim
+#### 1-1. Install neovim
 
-#### download
-https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+##### Download
+https://github.com/neovim/neovim/releases/
 
 
-#### setting
+#### 1-2. Set config home
 ```
-# yum install -y python3-pip
-# pip3 install neovim
+set XDG_CONFIG_HOME=C:\prefix\neovim\conf
+```
 
+### 2. Setup python3
+#### 2-1. Install phtyon3
+
+##### Download
+https://www.python.org/downloads/windows/
+
+##### Install neovim python plugin
+```
+> pip3 install neovim
+```
+
+#### 2-2. Check health
+```
 :checkhealth
 ## Python 3 provider (optional)
   - INFO: `g:python3_host_prog` is not set.  Searching for python3 in the environment.
@@ -153,66 +166,143 @@ https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
   - OK: Latest pynvim is installed.
 ```
 
-
-### 2. init.vim
+### 3. Setup vimspector
+#### 3-1. Install vimspector
 ```
-$ cat ~/.config/nvim/init.vim
+> cd %XDG_CONFIG_HOME%\nvim\pack\dap\start
+>
+> git clone https://github.com/puremourning/vimspector.git
+>
+```
+
+
+### 3-2. Create init.vim
+```
+> vi %XDG_CONFIG_HOME%\nvim\init.vim
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 packadd vimspector
-python3 import vim
 
-$
+>
 ```
 
-### 3. Install vimspector
-```
-$ ls ~/.local/share/nvim/site/pack/vimspector/opt/vimspector/
-autoload  gadgets  plugin  python3
 
-$
-```
+### 4. Setup Haskell project
 
-#### Modify a bit
-```
-(python3/vimspector)
-$ diff stack_trace.py.dist stack_trace.py
-177c177
-<     if source.get( 'sourceReference', 0 ) > 0:
----
->     if (source.get( 'sourceReference', 0 ) is not None) and (source.get( 'sourceReference', 0 ) > 0):
-$
-```
+#### 4-1. Create a stack project
+@see https://github.com/phoityne/hdx4vsc
 
-### 4. Create a stack project
-```
-$ stack new sample rio
-$
-$ cd sample
-$ stack test
-$
-```
 
-### 5. Install haskell-debugger
+#### 4-2. Create .vimspector.json
 
- Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
-
-```
-$ stack install haskell-dap ghci-dap haskell-debug-adapter
-$
-```
-
-### 6. Prepare .vimspector.json in the project directory.
+Create .vimspector.json in the stack project folder.  
 [see sample files.](https://github.com/phoityne/hdx4vim/tree/master/config)
 
 
 
-### 7. Run vim
+### 5. Run neovim
 ```
-$ nvim test/UtilSpec.hs
+> nvim-qt test/UtilSpec.hs
 
-:call vimspector#ToggleBreakpoint()   -> F9
-:call vimspector#Launch()             -> F5
-:VimspectorRest                       -> exit
+:call vimspector#ToggleBreakpoint()    -> F9
+:call vimspector#Launch()              -> F5
+:call vimspector#vimspector#StepOver() -> F10
+:VimspectorReset                       -> exit
+
+```
+@see https://github.com/puremourning/vimspector#visual-studio--vscode
+
+
+
+# nvim-dap
+## Movie
+![05_nvim_dap.gif](https://raw.githubusercontent.com/phoityne/hdx4vim/master/docs/05_nvim_dap.gif)
+
+## Environment
+- Windows10
+- neovim-5.0-dev
+- [nvim-dap](https://github.com/mfussenegger/nvim-dap)
+
+## Setup
+
+### 1. Setup neovim
+#### 1-1. Install neovim
+
+##### Download
+https://github.com/neovim/neovim/releases/
+
+
+#### 1-2. Set config home
+```
+set XDG_CONFIG_HOME=C:\prefix\neovim\conf
+```
+
+
+### 3. Setup nvim-dap
+#### 3-1. Install
+```
+> cd %XDG_CONFIG_HOME%\nvim\pack\dap\start
+>
+> git clone https://github.com/mfussenegger/nvim-dap.git
+>
+```
+
+
+### 3-2. Create init.vim
+```
+> vi %XDG_CONFIG_HOME%\nvim\init.vim
+packadd nvim-dap
+set langmenu=en_US.UTF-8
+language messages en_US.UTF-8
+
+lua << EOF
+
+local dap = require('dap')
+dap.adapters.haskell = {
+  type = 'executable';
+  command = 'haskell-debug-adapter.exe';
+  args = { '--hackage-version', '0.0.31' };
+}
+
+local workspaceFolder = vim.fn.getcwd()
+dap.configurations.haskell = {
+  {
+    type = 'haskell';
+    request = 'launch';
+    name = "haskell-debug-adapter";
+    program = "${file}";
+    workspace = "${workspaceFolder}";
+    startup = "${workspaceFolder}/test/Spec.hs";
+    startupFunc = "";
+    startupArgs = "";
+    stopOnEntry = false;
+    mainArgs = "";
+    ghciPrompt = "H>>= ";
+    ghciInitialPrompt = "Prelude>";
+    ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show";
+    ghciEnv = {dummy=""},
+    logFile = "${workspaceFolder}/hda.log";
+    logLevel = "DEBUG";
+    forceInspect = false;
+  }
+}
+
+EOF
+
+nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+nnoremap <silent> <F9> :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+>
+```
+
+
+### 4. Setup Haskell project
+@see https://github.com/phoityne/hdx4vsc
+
+
+### 5. Run neovim
+```
+> nvim-qt app\Main.hs
 
 ```
 

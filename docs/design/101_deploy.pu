@@ -12,13 +12,15 @@ left to right direction
 
 title <size:18>Haskell Debugging System Deployment Diagram</size>
 
-node "vim / neovim" {
+node "vim" {
   component "vimspector" <<plugin>>
 }
 
-node "VSCode" {
-  component "hdx4vsc" <<extension>>
+node "neovim" {
+  component "vimspector_" <<plugin>>
+  component "nvim-dap" <<plugin>>
 }
+
 
 node "Haskell Debugger" {
   component "haskell-dap" <<library>>
@@ -29,7 +31,8 @@ node "Haskell Debugger" {
 }
 
 [vimspector] -- [haskell-debug-adapter] : <<stdio>>
-[hdx4vsc] -- [haskell-debug-adapter] : <<stdio>>
+[vimspector_] -- [haskell-debug-adapter] : <<stdio>>
+[nvim-dap] -- [haskell-debug-adapter] : <<stdio>>
 [haskell-debug-adapter] --> [ghci-dap] : <<stdio>>
 [haskell-debug-adapter] -l-> [haskell-dap] : <<use>>
 [ghci-dap] -l-> [haskell-dap] : <<use>>

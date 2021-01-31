@@ -1,0 +1,42 @@
+packadd nvim-dap
+
+lua << EOF
+
+local dap = require('dap')
+dap.adapters.haskell = {
+  type = 'executable';
+  command = 'haskell-debug-adapter.exe';
+  args = { '--hackage-version', '0.0.31' };
+}
+
+local workspaceFolder = vim.fn.getcwd()
+dap.configurations.haskell = {
+  {
+    type = 'haskell';
+    request = 'launch';
+    name = "haskell-debug-adapter";
+    program = "${file}";
+    workspace = "${workspaceFolder}";
+    startup = "${workspaceFolder}/app/Main.hs";
+    startupFunc = "";
+    startupArgs = "";
+    stopOnEntry = false;
+    mainArgs = "";
+    ghciPrompt = "H>>= ";
+    ghciInitialPrompt = "Prelude>";
+    ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show";
+    ghciEnv = {dummy=""},
+    logFile = "${workspaceFolder}/hda.log";
+    logLevel = "DEBUG";
+    forceInspect = false;
+  }
+}
+
+EOF
+
+nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <F9> :lua require'dap'.toggle_breakpoint()<CR>
+
+
