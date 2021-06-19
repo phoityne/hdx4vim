@@ -247,7 +247,7 @@ set XDG_CONFIG_HOME=C:\prefix\neovim\conf
 ```
 
 
-### 3-2. Create init.vim
+#### 3-2. Create init.vim
 ```
 > vi %XDG_CONFIG_HOME%\nvim\init.vim
 packadd nvim-dap
