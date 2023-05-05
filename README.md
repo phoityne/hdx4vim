@@ -78,7 +78,7 @@ This is an experimental.
         "stopOnEntry": true,
         "mainArgs": "",
         "ghciPrompt": "H>>= ",
-        "ghciInitialPrompt": "Prelude>",
+        "ghciInitialPrompt": "> ",
         "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
         "ghciEnv": {},
         "logFile": "${workspaceRoot}/hdx4vim.log",
@@ -277,7 +277,7 @@ dap.configurations.haskell = {
     stopOnEntry = false;
     mainArgs = "";
     ghciPrompt = "H>>= ";
-    ghciInitialPrompt = "Prelude>";
+    ghciInitialPrompt = "> ";
     ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show";
     ghciEnv = {dummy=""},
     logFile = "${workspaceFolder}/hda.log";
