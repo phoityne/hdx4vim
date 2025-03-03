@@ -79,7 +79,8 @@ This is an experimental.
         "mainArgs": "",
         "ghciPrompt": "H>>= ",
         "ghciInitialPrompt": "> ",
-        "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+        "ghciCmd": "ghci-dap", // Use hie-bios to determine ghci-dap commands (ghci-dap)
+        // "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show", // Use an explicit stack invocation to run ghci-dap
         "ghciEnv": {},
         "logFile": "${workspaceRoot}/hdx4vim.log",
         "logLevel": "WARNING",
