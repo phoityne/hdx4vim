@@ -24,7 +24,7 @@
         "mainArgs": "",
         "ghciPrompt": "H>>= ",
         "ghciInitialPrompt": "Prelude>",
-        "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET",
+        "ghciCmd": "ghci-dap",
         "ghciEnv": {},
         "logFile": "${workspaceRoot}/hdx4vim.log",
         "logLevel": "WARNING",
